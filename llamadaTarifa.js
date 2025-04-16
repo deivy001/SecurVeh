@@ -1,5 +1,4 @@
-const tarifa = require('./CalcularTarifa'); // Asumiendo que lo guardaste como tarifario.js
+const tarifa = require('./CalcularTarifa'); 
 
-// Ejemplo de ejecución:
 tarifa.moduloMostrarTarifarioServicios("Lucía", "Gonzales");
 1

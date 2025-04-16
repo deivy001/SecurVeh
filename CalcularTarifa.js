@@ -1,4 +1,4 @@
-// función principal que muestra el tarifario
+// función principal 
 function MostrarTarifarioServicios(nombreCliente, apellidoCliente) 
 {
     // Validación de parámetros
@@ -7,13 +7,13 @@ function MostrarTarifarioServicios(nombreCliente, apellidoCliente)
         return;
     }
 
-    // Validación que sean strings
+
     if (typeof nombreCliente !== 'string' || typeof apellidoCliente !== 'string') {
         console.log("⚠️  Error: El nombre y el apellido deben ser texto.");
         return;
     }
 
-    // Mensaje de presentación
+    // Mensaje de muestra el muestrario
     console.log(`📋 Tarifario solicitado por: ${nombreCliente} ${apellidoCliente}\n`);
     console.log("🚗 TARIFARIO DE SERVICIOS DE GUARDIANÍA VEHICULAR:");
     console.log("-----------------------------------------------");
@@ -23,7 +23,7 @@ function MostrarTarifarioServicios(nombreCliente, apellidoCliente)
     console.log("4. Vehículos mayores 4 o 6 ejes (camiones, cisternas, trailers): 10.00 soles x hora");
 }
 
-// Exportar como módulo para usar desde otros archivos o probar en consola
+// Exportar como módulo para usarr en consola
 module.exports = {
     moduloMostrarTarifarioServicios: MostrarTarifarioServicios
 };
