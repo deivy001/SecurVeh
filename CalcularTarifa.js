@@ -1,33 +1,67 @@
-// función principal 
-function MostrarTarifarioServicios(nombreCliente, apellidoCliente) 
-{
-    // Validación de parámetros
-    if (!nombreCliente || !apellidoCliente) {
-        console.log("⚠️  Error: Debe ingresar nombre y apellido del cliente.");
-        return;
+function calcularTarifaBase(tipoVehiculo, horas) {
+    let tarifaHora = 0;
+    
+    switch(tipoVehiculo) {
+        case "menor sin motor":
+            tarifaHora = 3;
+            break;
+        case "menor con motor":
+            tarifaHora = 4.5;
+            break;
+        case "menor 4 ejes":
+            tarifaHora = 6;
+            break;
+        case "mayor 4,6 ejes":
+            tarifaHora = 10;
+            break;
+        default:
+            tarifaHora = 0;
     }
-
-
-    if (typeof nombreCliente !== 'string' || typeof apellidoCliente !== 'string') {
-        console.log("⚠️  Error: El nombre y el apellido deben ser texto.");
-        return;
-    }
-
-    // Mensaje de muestra el muestrario
-    console.log(`📋 Tarifario solicitado por: ${nombreCliente} ${apellidoCliente}\n`);
-    console.log("🚗 TARIFARIO DE SERVICIOS DE GUARDIANÍA VEHICULAR:");
-    console.log("-----------------------------------------------");
-    console.log("1. Vehículos menores sin motor (bicicletas, triciclos): 3.00 soles x hora");
-    console.log("2. Vehículos menores con motor (motos, mototaxis): 4.50 soles x hora");
-    console.log("3. Vehículos menores 4 ejes (autos, camionetas): 6.00 soles x hora");
-    console.log("4. Vehículos mayores 4 o 6 ejes (camiones, cisternas, trailers): 10.00 soles x hora");
+    
+    return tarifaHora * horas;
 }
+function clasificarVehiculo(tipoVehiculo) {
+    switch (tipoVehiculo) {
+        case "menor sin motor":
+            return "Bicicletas y triciclos";
+        case "menor con motor":
+            return "Motos y mototaxis";
+        case "menor 4 ejes":
+            return "Autos y camionetas";
+        case "mayor 4,6 ejes":
+            return "Camiones, cisternas y trailers";
+        default:
+            return "Tipo de vehículo no reconocido";
+    }
+}
+function calcularTarifa(nombreCliente, tipoVehiculo, marcaModelo, placa, horas) {
 
-// Exportar como módulo para usarr en consola
-module.exports = {
-    moduloMostrarTarifarioServicios: MostrarTarifarioServicios
-};
+    if (nombreCliente == undefined || tipoVehiculo == undefined || 
+        marcaModelo == undefined || placa == undefined || horas == undefined) {
+        console.log("Error: Todos los campos son obligatorios");
+        return;
+    }
+    
+    if(typeof horas !== 'number') {
+        console.log("Error: Las horas deben ser un número");
+        return;
+    }
 
+    const subtotal = calcularTarifaBase(tipoVehiculo, horas);
+    const igv = subtotal * 0.18;
+    const total = subtotal + igv;
+    const categoriaVehiculo = clasificarVehiculo(tipoVehiculo);
 
-
-
+    console.log("-----DETALLE------");
+    console.log("Cliente: " + nombreCliente);
+    console.log("Vehículo: " + marcaModelo + " (Placa: " + placa + ")");
+    console.log("Categoría: " + categoriaVehiculo);
+    console.log("Horas de guardianía: " + horas);
+    console.log("Tarifa por hora: S/. " + (subtotal/horas).toFixed(2));
+    console.log("-----");
+    console.log("Subtotal: S/. " + subtotal.toFixed(2));
+    console.log("IGV (18%): S/. " + igv.toFixed(2));
+    console.log("Total a pagar: S/. " + total.toFixed(2));
+    console.log("----");
+}
+module.exports = calcularTarifa;
